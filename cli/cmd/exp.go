@@ -186,7 +186,8 @@ func (ec *baseExpCommandService) registerCloudExpCommands() []*modelCommand {
 
 // registerJvmExpCommands
 func (ec *baseExpCommandService) registerJvmExpCommands() []*modelCommand {
-	file := path.Join(specutil.GetYamlHome(), fmt.Sprintf("chaosblade-jvm-spec-%s.yaml", version.Ver))
+	//file := path.Join(specutil.GetYamlHome(), fmt.Sprintf("chaosblade-jvm-spec-%s.yaml", version.Ver))
+	file := path.Join(version.YamlHome, fmt.Sprintf("chaosblade-jvm-spec-%s.yaml", version.Ver))
 	models, err := specutil.ParseSpecsToModel(file, jvm.NewExecutor())
 	if err != nil {
 		return nil

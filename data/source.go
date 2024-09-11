@@ -21,11 +21,11 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/chaosblade-io/chaosblade-spec-go/log"
+	"github.com/chaosblade-io/chaosblade/version"
 	"path"
 	"sync"
 	"unicode"
 
-	"github.com/chaosblade-io/chaosblade-spec-go/util"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -66,7 +66,7 @@ func (s *Source) init() {
 }
 
 func getConnection() *sql.DB {
-	database, err := sql.Open("sqlite3", path.Join(util.GetProgramPath(), dataFile))
+	database, err := sql.Open("sqlite3", path.Join(version.Home, dataFile))
 	if err != nil {
 		log.Fatalf(context.Background(), "open data file err, %s", err.Error())
 		//log.Error(err, "open data file err")

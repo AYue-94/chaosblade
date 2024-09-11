@@ -19,6 +19,7 @@ package jvm
 import (
 	"context"
 	"fmt"
+	"github.com/chaosblade-io/chaosblade/version"
 	"os"
 	osuser "os/user"
 	"path"
@@ -156,10 +157,10 @@ func attach(ctx context.Context, pid, port string, javaHome string) (*spec.Respo
 
 func getAttachJvmOpts(toolsJar string, token string, port string, pid string) string {
 	jvmOpts := fmt.Sprintf("-Xms128M -Xmx128M -Xnoclassgc -ea -Xbootclasspath/a:%s", toolsJar)
-	sandboxHome := path.Join(util.GetLibHome(), "sandbox")
-	sandboxLibPath := path.Join(sandboxHome, "lib")
+	//sandboxHome := path.Join(util.GetLibHome(), "sandbox")
+	sandboxLibPath := path.Join(version.SandboxHome, "lib")
 	sandboxAttachArgs := fmt.Sprintf("home=%s;token=%s;server.ip=%s;server.port=%s;namespace=%s",
-		sandboxHome, token, "127.0.0.1", port, DefaultNamespace)
+		version.SandboxHome, token, "127.0.0.1", port, DefaultNamespace)
 	javaArgs := fmt.Sprintf(`%s -jar %s/sandbox-core.jar %s "%s/sandbox-agent.jar" "%s"`,
 		jvmOpts, sandboxLibPath, pid, sandboxLibPath, sandboxAttachArgs)
 	return javaArgs

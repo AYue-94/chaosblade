@@ -16,8 +16,14 @@
 
 package version
 
+import "os"
+
 var (
-	Ver       = "unknown"
-	Env       = "unknown"
-	BuildTime = "unknown"
+	Ver         = "1.7.4"
+	Env         = "unknown"
+	BuildTime   = "unknown"
+	UserHome, _ = os.UserHomeDir()
+	Home        = UserHome + "/github/chaosblade/target/chaosblade-1.7.4"
+	YamlHome    = Home + "/yaml"
+	SandboxHome = Home + "/lib/sandbox"
 )
