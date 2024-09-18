@@ -137,7 +137,8 @@ func (ec *baseExpCommandService) registerSubCommands() {
 
 // registerOsExpCommands
 func (ec *baseExpCommandService) registerOsExpCommands() []*modelCommand {
-	file := path.Join(specutil.GetYamlHome(), fmt.Sprintf("chaosblade-os-spec-%s.yaml", version.Ver))
+	//file := path.Join(specutil.GetYamlHome(), fmt.Sprintf("chaosblade-os-spec-%s.yaml", version.Ver))
+	file := path.Join(version.YamlHome, fmt.Sprintf("chaosblade-os-spec-%s.yaml", version.Ver))
 	models, err := specutil.ParseSpecsToModel(file, os.NewExecutor())
 	if err != nil {
 		return nil

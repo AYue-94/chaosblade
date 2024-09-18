@@ -22,7 +22,7 @@ import (
 	"github.com/chaosblade-io/chaosblade-exec-os/exec"
 	"github.com/chaosblade-io/chaosblade-spec-go/log"
 	"github.com/chaosblade-io/chaosblade-spec-go/spec"
-	"github.com/chaosblade-io/chaosblade-spec-go/util"
+	"github.com/chaosblade-io/chaosblade/version"
 	os_exec "os/exec"
 	"path"
 	"syscall"
@@ -46,9 +46,9 @@ func (e *Executor) Exec(uid string, ctx context.Context, model *spec.ExpModel) *
 		return sshExecutor.Exec(uid, ctx, model)
 	}
 
-	var mode string 
+	var mode string
 	var argsArray []string
-	
+
 	_, isDestroy := spec.IsDestroy(ctx)
 	if isDestroy {
 		mode = spec.Destroy
@@ -58,13 +58,14 @@ func (e *Executor) Exec(uid string, ctx context.Context, model *spec.ExpModel) *
 
 	argsArray = append(argsArray, mode, model.Target, model.ActionName, fmt.Sprintf("--uid=%s", uid))
 	for k, v := range model.ActionFlags {
-		if v == "" ||  k == "timeout" {
+		if v == "" || k == "timeout" {
 			continue
 		}
 		argsArray = append(argsArray, fmt.Sprintf("--%s=%s", k, v))
 	}
 
-	chaosOsBin := path.Join(util.GetProgramPath(), "bin", spec.ChaosOsBin)
+	//chaosOsBin := path.Join(util.GetProgramPath(), "bin", spec.ChaosOsBin)
+	chaosOsBin := path.Join(version.Home, "bin", spec.ChaosOsBin)
 	command := os_exec.CommandContext(ctx, chaosOsBin, argsArray...)
 	log.Debugf(ctx, "run command, %s %v", chaosOsBin, argsArray)
 
