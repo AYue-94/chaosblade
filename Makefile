@@ -113,7 +113,8 @@ build_linux:  ## Build linux version of all scenarios by docker image
 build_linux_arm:  ## Build linux arm version of all scenarios by docker image
 	make build_with_linux_arm ARGS="cli os cloud middleware cri nsexec kubernetes java cplus check_yaml" upx package
 
-build_darwin: pre_build cli os cloud middleware cri cplus java kubernetes upx package check_yaml ## Build all scenarios darwin version
+#build_darwin: pre_build cli os cloud middleware cri cplus java kubernetes upx package check_yaml ## Build all scenarios darwin version
+build_darwin: pre_build cli os cloud middleware cri cplus java kubernetes package check_yaml ## Build all scenarios darwin version
 
 ##@ Build sub
 

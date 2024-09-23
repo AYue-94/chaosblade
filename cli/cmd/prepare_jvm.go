@@ -96,6 +96,7 @@ func (pc *PrepareJvmCommand) prepareJvm(ctx context.Context) error {
 		return spec.ResponseFailWithFlags(spec.DatabaseError, "query", err)
 	}
 	if !pc.nohup {
+		// 1. 创建preparation记录 状态=Created
 		record, err = pc.ManualPreparation(ctx, record, err)
 		if err != nil {
 			return err
@@ -110,12 +111,14 @@ func (pc *PrepareJvmCommand) prepareJvm(ctx context.Context) error {
 	if pc.port == 0 && record != nil {
 		pc.port, _ = strconv.Atoi(record.Port)
 	}
+	// 2. 挂载sandbox
 	response = pc.attachAgent(ctx)
 	if record != nil && record.Pid != pc.processId {
 		// update pid
 		updatePreparationPid(pc.uid, pc.processId)
 	}
 
+	// 3. 根据挂载情况更新preparation记录 状态=ERROR/Running
 	preErr := handlePrepareResponseWithoutExit(ctx, pc.uid, pc.command, response)
 	if pc.async && pc.endpoint != "" {
 		pc.reportAttachedResult(ctx, response)
