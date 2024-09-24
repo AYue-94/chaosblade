@@ -264,7 +264,8 @@ func GetResourceFlags() []spec.ExpFlagSpec {
 
 func (ec *baseExpCommandService) registerK8sExpCommands() []*modelCommand {
 	// 读取 k8s 下的场景并注册
-	file := path.Join(specutil.GetYamlHome(), fmt.Sprintf("chaosblade-k8s-spec-%s.yaml", version.Ver))
+	//file := path.Join(specutil.GetYamlHome(), fmt.Sprintf("chaosblade-k8s-spec-%s.yaml", version.Ver))
+	file := path.Join(version.YamlHome, fmt.Sprintf("chaosblade-k8s-spec-%s.yaml", version.Ver))
 	models, err := specutil.ParseSpecsToModel(file, kubernetes.NewComposeExecutor())
 	if err != nil {
 		return nil
@@ -277,7 +278,8 @@ func (ec *baseExpCommandService) registerK8sExpCommands() []*modelCommand {
 		modelCommands = append(modelCommands, command)
 	}
 
-	file = path.Join(specutil.GetYamlHome(), fmt.Sprintf("chaosblade-jvm-spec-%s.yaml", version.Ver))
+	//file = path.Join(specutil.GetYamlHome(), fmt.Sprintf("chaosblade-jvm-spec-%s.yaml", version.Ver))
+	file = path.Join(version.YamlHome, fmt.Sprintf("chaosblade-jvm-spec-%s.yaml", version.Ver))
 	models, err = specutil.ParseSpecsToModel(file, kubernetes.NewExecutor())
 	if err != nil {
 		return nil
@@ -301,7 +303,8 @@ func (ec *baseExpCommandService) registerK8sExpCommands() []*modelCommand {
 
 // registerCriExpCommands
 func (ec *baseExpCommandService) registerCriExpCommands() []*modelCommand {
-	file := path.Join(specutil.GetYamlHome(), fmt.Sprintf("chaosblade-cri-spec-%s.yaml", version.Ver))
+	//file := path.Join(specutil.GetYamlHome(), fmt.Sprintf("chaosblade-cri-spec-%s.yaml", version.Ver))
+	file := path.Join(version.YamlHome, fmt.Sprintf("chaosblade-cri-spec-%s.yaml", version.Ver))
 	models, err := specutil.ParseSpecsToModel(file, cri.NewExecutor())
 	if err != nil {
 		return nil
@@ -314,7 +317,8 @@ func (ec *baseExpCommandService) registerCriExpCommands() []*modelCommand {
 		modelCommands = append(modelCommands, command)
 	}
 
-	file = path.Join(specutil.GetYamlHome(), fmt.Sprintf("chaosblade-jvm-spec-%s.yaml", version.Ver))
+	//file = path.Join(specutil.GetYamlHome(), fmt.Sprintf("chaosblade-jvm-spec-%s.yaml", version.Ver))
+	file = path.Join(version.YamlHome, fmt.Sprintf("chaosblade-jvm-spec-%s.yaml", version.Ver))
 	models, err = specutil.ParseSpecsToModel(file, cri.NewExecutor())
 	if err != nil {
 		return nil
